@@ -1,0 +1,2 @@
+setCssToHead([".",[1],"layout{ display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; }\n.",[1],"itemsize{ height: ",[0,50],"; margin-bottom: ",[0,10],"; margin-top: ",[0,10],"; text-align: left; }\n.",[1],"item_img{ height: ",[0,50],"; width: ",[0,50],"; }\n.",[1],"text-left{ text-align: left; }\n",],undefined,{path:"./pages/index/index.wxss"})();
+document.dispatchEvent(new CustomEvent("generateFuncReady", { detail: { generateFunc: $gwx('./pages/index/index.wxml') } }));

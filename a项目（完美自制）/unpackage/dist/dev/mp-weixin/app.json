@@ -1,0 +1,54 @@
+{
+  "pages": [
+    "pages/image/image",
+    "pages/person/person",
+    "pages/item/item",
+    "pages/user/info/info",
+    "pages/music/music",
+    "pages/audio/audio",
+    "pages/music/music_list",
+    "pages/music/music_item",
+    "pages/login/login",
+    "pages/index/index",
+    "pages/about/about"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#404040",
+    "selectedColor": "#0064BF",
+    "backgroundColor": "#4CD964",
+    "list": [
+      {
+        "pagePath": "pages/image/image",
+        "iconPath": "static/ico/images.png",
+        "selectedIconPath": "static/ico/images.png",
+        "text": "图片"
+      },
+      {
+        "pagePath": "pages/music/music",
+        "iconPath": "static/ico/music.png",
+        "selectedIconPath": "static/ico/music.png",
+        "text": "音乐"
+      },
+      {
+        "pagePath": "pages/audio/audio",
+        "iconPath": "static/ico/audio.png",
+        "selectedIconPath": "static/ico/audio.png",
+        "text": "搜索"
+      },
+      {
+        "pagePath": "pages/person/person",
+        "iconPath": "static/ico/user.png",
+        "text": "用户",
+        "selectedIconPath": "static/ico/user.png"
+      }
+    ]
+  },
+  "usingComponents": {}
+}

@@ -1,0 +1,2 @@
+setCssToHead(["body, wx-view { display: block; }\n.",[1],"iterm{ height: ",[0,200],"; margin-bottom: ",[0,20],"; margin-top: ",[0,20],"; font-size: ",[0,30],"; padding-bottom: ",[0,10],"; padding-top: ",[0,10],"; padding-left: ",[0,10],"; background-color: #FFFFFF; }\n.",[1],"tex{ text-align: center; }\n.",[1],"iterm_img{ height: ",[0,150],"; width: ",[0,150],"; }\n",],undefined,{path:"./pages/music/music.wxss"})();
+document.dispatchEvent(new CustomEvent("generateFuncReady", { detail: { generateFunc: $gwx('./pages/music/music.wxml') } }));

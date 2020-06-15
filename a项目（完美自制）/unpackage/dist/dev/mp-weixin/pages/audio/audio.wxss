@@ -1,0 +1,31 @@
+
+page,view{
+	display: block;
+}
+.uni-input{
+	height: 100rpx;
+	font-size: 50rpx;
+	color: #808080;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	background-color: #FFFFFF;
+}
+input{
+	height: 100rpx;
+	width: 90%;
+}
+.bsmall{
+	height: 100rpx;
+}
+.smallico{
+	height: 100rpx;
+	width: 100rpx;
+}
+.displays{
+	
+	font-size: 30rpx;
+	text-align: left;
+}
+

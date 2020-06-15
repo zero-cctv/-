@@ -1,0 +1,23 @@
+
+page,
+view {
+	display: block;
+}.iterm{
+	height: 200rpx;
+	margin-bottom: 20rpx;
+	margin-top: 20rpx;
+	font-size: 30rpx;
+	padding-bottom: 10rpx;
+	padding-top: 10rpx;
+	padding-left: 10rpx;
+	background-color: #FFFFFF;
+}.tex{
+	
+	text-align: center;
+}.iterm_img{
+	
+	height: 150rpx;
+	width: 150rpx;
+}
+
+

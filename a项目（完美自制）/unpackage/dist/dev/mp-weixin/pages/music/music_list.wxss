@@ -1,0 +1,17 @@
+
+.setwidth{
+}
+.set{
+	width: 90%;
+}
+.setTiti{
+	display: block;
+}
+page, view{
+	display: block;
+}
+page {
+	display: block;
+	background-color: #4CD964;
+}
+

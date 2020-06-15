@@ -1,0 +1,2 @@
+setCssToHead([".",[1],"setwidth{ }\n.",[1],"set{ width: 90%; }\n.",[1],"setTiti{ display: block; }\nbody, wx-view{ display: block; }\nbody { display: block; background-color: #4CD964; }\n",],undefined,{path:"./pages/music/music_list.wxss"})();
+document.dispatchEvent(new CustomEvent("generateFuncReady", { detail: { generateFunc: $gwx('./pages/music/music_list.wxml') } }));

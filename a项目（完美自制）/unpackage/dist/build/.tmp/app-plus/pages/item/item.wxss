@@ -1,0 +1,75 @@
+
+.center{
+	text-align: center;
+}
+.swiper {
+	height: 200rpx;
+	width: 100%;
+}
+.swiper-item {
+	height: 200rpx;
+	width: 100%;
+	background-color: #007AFF;
+}
+.content {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	    -ms-flex-direction: column;
+	        flex-direction: column;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	    -ms-flex-pack: center;
+	        justify-content: center;
+}
+.logo {
+	height: 200rpx;
+	width: 200rpx;
+	margin-top: 200rpx;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 50rpx;
+}
+.text-area {
+	display: inline-block;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	    -ms-flex-pack: center;
+	        justify-content: center;
+	width: 300rpx;
+	height: 40rpx;
+	background-color: #4CD964
+}
+.sv {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-flex-wrap: nowrap;
+	    -ms-flex-wrap: nowrap;
+	        flex-wrap: nowrap;
+	white-space: nowrap;
+	width: 100%;
+	height: 40rpx;
+}
+.title {
+	font-size: 36rpx;
+	color: #8f8f94;
+}
+page, view{
+display: block;
+background-color: #000000;
+}
+.xxx{
+	width: 500rpx;
+	height: 500rpx;
+}
+

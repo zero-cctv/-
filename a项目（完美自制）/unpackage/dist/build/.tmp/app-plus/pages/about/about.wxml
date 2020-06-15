@@ -1,0 +1,1 @@
+<view class="center"><block wx:for="{{respond}}" wx:for-item="item" wx:for-index="__i0__" wx:key="android_pic"><view><view class="itemsize"><button class="text-left"><image class="item_img" src="{{item.android_pic}}" mode="aspectFit"></image>{{item.android_text}}</button></view></view></block></view>
