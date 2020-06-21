@@ -68,6 +68,14 @@
 			"style":{
 				"navigationBarTitleText":"推广"
 			}
+		},
+		{
+			"path":"pages/new/new",
+			"style":{
+				
+				"navigationBarTitleText":"新闻",
+				 "enablePullDownRefresh": true
+			}
 		}
 	],
 	"globalStyle": {
@@ -93,10 +101,10 @@
 			"text":"音乐"
 		},
 		{
-			"pagePath": "pages/audio/audio",
+			"pagePath": "pages/new/new",
 			"iconPath": "static/ico/audio.png",
 			"selectedIconPath": "static/ico/audio.png",	
-			"text":"搜索"
+			"text":"新闻"
 		},{
 			"pagePath":"pages/person/person",
 			"iconPath": "static/ico/user.png",
