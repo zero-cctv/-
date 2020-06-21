@@ -68,22 +68,6 @@
 			"style":{
 				"navigationBarTitleText":"推广"
 			}
-		},
-		{
-		    "path": "pages/news/list",
-		    "style": {
-		        "navigationBarTitleText": "新闻"
-		    }
-		}, {
-		    "path": "pages/news/detail",
-		    "style": {
-		        "navigationBarTitleText": "新闻详情"
-		    }
-		}, {
-		    "path": "pages/news/publish",
-		    "style": {
-		        "navigationBarTitleText": "发布新闻"
-		    }
 		}
 	],
 	"globalStyle": {
@@ -118,17 +102,7 @@
 			"iconPath": "static/ico/user.png",
 			"text":"用户",
 			"selectedIconPath":"static/ico/user.png"
-		},{
-            "pagePath": "pages/news/list",
-            "text": "新闻",
-            "iconPath": "static/img/faxian.png",
-            "selectedIconPath": "static/img/faxianHL.png"
-        }, {
-            "pagePath": "pages/news/publish",
-            "text": "发布",
-            "iconPath": "static/img/fabu.png",
-            "selectedIconPath": "static/img/fabuHL.png"
-        }
+		}
     
 		]
 	},
