@@ -63,6 +63,7 @@
 	.navTabBox {
 		width: 100vw;
 		color: rgba(255, 255, 255, 0.50);
+
 		.click {
 			color: #000000;
 		}
