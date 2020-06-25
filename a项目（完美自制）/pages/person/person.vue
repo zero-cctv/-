@@ -40,12 +40,14 @@
     data() {
       return {
 		  username:"水军",
-		  userID:"1234"
+		  userID:"1234",
+		  uid:""
 	  };
     },
-	onLoad:function(){
-		__self=this,
-	
+	onLoad:function(u){
+		__self=this;
+		if(u&&u.uid){
+		this.uid=JSON.parse(decodeURIComponent(u.uid));}
 		__self.getData();
 		 uni.startPullDownRefresh({
 		            success:function(res){
@@ -62,9 +64,12 @@
 	       }, 1000);
 	   },
     methods: {
+		
+
+
       /**
        * 打开用户信息页
-       */
+       */	  
 	  chang(){
 		  __self.username="大水",
 		 uni.navigateTo({

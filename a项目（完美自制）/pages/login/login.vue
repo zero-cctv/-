@@ -63,7 +63,14 @@
 				phoneData:'', //用户/电话
 				passData:'', //密码
 				isRotate: false, //是否加载旋转
+				data:'',
+				getphone:''				
 			};
+		},
+		onLoad(s) {
+			if(s&&s.phone){
+			this.phoneData= JSON.parse(decodeURIComponent(s.phone));
+			}
 		},
 		components:{
 			wInput,
@@ -74,6 +81,63 @@
 			//this.isLogin();
 		},
 		methods: {
+			postData(curl, str, p) {
+				uni.request({
+					url: curl,
+					method: 'POST',
+					data: p,
+					header:{"Content-Type":"application/x-www-form-urlencoded"}, 				
+					success: res => {
+						console.log('发送网址:' + curl);
+						console.log('send:' + p);
+						this.data = res;
+						
+					},
+					fail: () => {
+						console.log('this is fail');
+					},
+					complete: () => {
+						this.requestafter(str);
+					}
+				});
+			},
+			requestafter(str) {	
+				var message=' ';
+				console.log(this.data);
+				if(str='startLogin'){
+					
+					if(this.data.data.code&&this.data.data.code==200&&this.data.data.message&&this.data.data.uid){
+						message=this.data.data.message
+						console.log(message)
+						var uid=this.data.data.uid;
+						_this.isRotate=true
+						setTimeout(function(){
+							_this.isRotate=false;
+							uni.showToast({
+							    icon: 'none',
+								position: 'bottom',
+							    title: message
+							});
+						},1000)
+						setTimeout(function() {
+							/*navigateTo不能跳转到标签页面,switchTab可以*/
+							uni.switchTab({
+								url: '/pages/person/person?uid='+encodeURIComponent(JSON.stringify(uid))
+							});
+						}, 2000);
+						
+					}else{
+						if(this.data.data.message){message=this.data.data.message}
+						console.log(message)
+						uni.showToast({
+						    icon: 'none',
+							position: 'bottom',
+						    title: message
+						});
+					}
+				}
+			},		
+			
 			isLogin(){
 				//判断缓存中是否登录过，直接登录
 				// try {
@@ -112,13 +176,13 @@
 		            });
 		            return;
 		        }
-				
-				console.log("登录成功")
-				
-				_this.isRotate=true
-				setTimeout(function(){
-					_this.isRotate=false
-				},3000)
+				var url=this.$api.user.login;
+				var a={
+					"phone":_this.phoneData,
+					"password":_this.passData,
+				}
+				this.postData(url,"startLogin",a);
+
 				// uni.showLoading({
 				// 	title: '登录中'
 				// });

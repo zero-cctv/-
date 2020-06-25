@@ -63,6 +63,7 @@
 					},
 					complete: () => {}
 				});
+				
 			}
 			,
 			goDetail:function(e){

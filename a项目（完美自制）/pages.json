@@ -7,6 +7,18 @@
 			}
 		},
 		{
+			"path":"pages/login/register",
+			"style":{
+				"navigationBarTitleText":"注册"
+			}
+		},
+		{
+			"path":"pages/login/forget",
+			"style":{
+				"navigationBarTitleText":"忘记密码"
+			}
+		},
+		{
 			"path":"pages/image/image",
 			"style":{
 				"navigationBarTitleText":"图片",
@@ -16,7 +28,8 @@
 		
 		{
 			"path": "pages/person/person",
-			"style": {"navigationBarTitleText": "个人"}
+			"style": {"navigationBarTitleText": "个人"},
+			"enablePullDownRefresh": true
 		},
 		{
 			"path":"pages/item/item",
@@ -27,7 +40,8 @@
 		{
 			"path":"pages/user/info/info",
 			"style":{
-				"navigationBarTitleText":"用户"
+				"navigationBarTitleText":"用户",
+				"enablePullDownRefresh": true
 			}
 		},
 		{
@@ -61,7 +75,8 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "用户"
+				"navigationBarTitleText": "用户",
+				"enablePullDownRefresh": true
 			}
 		},
 		{
@@ -76,6 +91,14 @@
 				
 				"navigationBarTitleText":"新闻",
 				 "enablePullDownRefresh": true
+			}
+		},
+		{
+			"path":"pages/publish/publish",
+			"style":{
+				
+				"navigationBarTitleText":"上传"
+				
 			}
 		}
 	],
@@ -95,12 +118,19 @@
 			"iconPath": "static/ico/images.png",
 			"selectedIconPath": "static/ico/images.png",
 			"text":"图片"//图标大小都不可以>40kb,不支持ico格式
-		},{
+		}, 
+		{
 			"pagePath": "pages/music/music",
 			"iconPath": "static/ico/music.png",
-			"selectedIconPath":"static/ico/music.png",	
-			"text":"音乐"
-		},
+			"selectedIconPath": "static/ico/music.png",
+			"text":"音乐"//图标大小都不可以>40kb,不支持ico格式
+		}, 
+		{
+            "pagePath": "pages/publish/publish",
+            "text": "上传",
+            "iconPath": "static/publish_img/fabu.png",
+            "selectedIconPath": "static/publish_img/fabuHL.png"
+        },
 		{
 			"pagePath": "pages/new/new",
 			"iconPath": "static/ico/audio.png",
@@ -114,29 +144,6 @@
 		}
     
 		]
-	},
-	"condition":{
-		"current":0,
-		"list":[
-		{
-			"name":"img",
-			"path": "pages/image/image",
-			"query":"a=6"
-		},{
-			"name":"music",
-			"path": "pages/music/music",
-			"query":"a=0"
-		},{
-			"name":"audio",
-			"path":"pages/audio/audio",
-			"query":"a=1"
-		},
-		{
-			"name":"index",
-			"path":"pages/person/person",
-			"query":"index=999&a=600"
-		}
-		
-		]
 	}
+
 }
