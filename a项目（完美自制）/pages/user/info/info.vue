@@ -5,14 +5,14 @@
       <cmd-transition name="fade-up">
         <view>
           <cmd-cel-item title="头像" slot-right arrow>
-            <cmd-avatar src="https://avatar.bbs.miui.com/images/noavatar_small.gif"></cmd-avatar>
+            <cmd-avatar :src="icon"></cmd-avatar>
           </cmd-cel-item>
-          <cmd-cel-item title="积分" addon="566" arrow></cmd-cel-item>
-          <cmd-cel-item title="昵称" addon="Slimmer" arrow></cmd-cel-item>
-          <cmd-cel-item title="姓名" addon="Lich" arrow></cmd-cel-item>
-          <cmd-cel-item title="联系方式" addon="15676109501" arrow></cmd-cel-item>
-          <cmd-cel-item title="证件号码" addon="450112xxxxxxxx2017" arrow></cmd-cel-item>
-          <cmd-cel-item title="我的地址" addon="广西壮族自治区南宁市西乡塘区大学西路29号" arrow></cmd-cel-item>
+          <cmd-cel-item title="积分" :addon="score" arrow></cmd-cel-item>
+          <cmd-cel-item title="昵称" :addon="name" arrow></cmd-cel-item>
+          <cmd-cel-item title="姓名" :addon="username" arrow></cmd-cel-item>
+          <cmd-cel-item title="联系方式" :addon="phone" arrow></cmd-cel-item>
+          <cmd-cel-item title="证件号码" :addon="persionid" arrow></cmd-cel-item>
+          <cmd-cel-item title="我的地址" :addon="address" arrow></cmd-cel-item>
           <cmd-cel-item title="修改密码" @click="fnClick('modify')" arrow></cmd-cel-item>
           <button class="btn-logout">退出登录</button>
         </view>
@@ -38,16 +38,77 @@
     },
 
     data() {
-      return {};
+      return {
+		  icon:'',
+		  score:'',
+		  name:'',
+		  username:'',
+		  phone:'',
+		  persionid:'',
+		  address:'',
+		  uid:'',
+		  data:''
+	  };
     },
 
+	onShow() {
+		this.uid= this.$getStorage("uid");
+		var p={'uid':this.uid};
+		var url=this.$api.user.info;
+		this.getData(url,'userinfo',p)
+	},
     mounted() {},
-    
+    onLoad() {
+    	// var p={'uid':this.uid};
+    	// var url=this.$api.user.getUser;
+    	// getData(url,'userinfo',p)
+    },
+	onPullDownRefresh() {
+		setTimeout(function () {
+		        uni.stopPullDownRefresh();  //停止下拉刷新动画
+		    }, 1000);
+		},
     methods:{
-      /**
-       * 点击触发
-       * @param {Object} type 跳转页面名或者类型方式
-       */
+
+	  getData(surl, str,p) {
+	  		uni.request({
+	  			url: surl,
+	  			method: 'GET',
+	  			data: p,
+	  			success: res => {
+	  				console.log('发送网址:' + surl);
+	  				this.data = res;
+	  				
+	  			},
+	  			fail: () => {
+	  				console.log('this is fail');
+	  			},
+	  			complete: () => {
+	  				this.requestafter(str);
+	  			}
+	  		});
+	  	
+	  },
+	  requestafter(str) {
+		  console.log(this.data);
+		  if(str=='userinfo'){
+			  if(this.data!=''){
+				  this.score=this.data.data.score;
+				  this.name=this.data.data.name;
+				  this.username=this.data.data.username;
+				  this.phone=this.data.data.phone;
+				  this.persionid=this.data.data.identity;
+				  this.address=this.data.data.addressID;
+				  this.icon=this.data.data.icourl;
+				  // console.log("url:=="+this.data.data.icourl)
+			  }
+		  }
+		  
+		  },
+	  /**
+	   * 点击触发
+	   * @param {Object} type 跳转页面名或者类型方式
+	   */
       fnClick(type){
         if(type == 'modify'){
           uni.navigateTo({

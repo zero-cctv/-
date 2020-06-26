@@ -106,10 +106,12 @@
 				console.log(this.data);
 				if(str='startLogin'){
 					
-					if(this.data.data.code&&this.data.data.code==200&&this.data.data.message&&this.data.data.uid){
+					if(this.data.data.code&&this.data.data.code==200){
 						message=this.data.data.message
 						console.log(message)
 						var uid=this.data.data.uid;
+						var username=this.data.data.username;
+						var icon=this.data.data.icon;
 						_this.isRotate=true
 						setTimeout(function(){
 							_this.isRotate=false;
@@ -119,10 +121,16 @@
 							    title: message
 							});
 						},1000)
+						/*switchTab不可以传参,这里用本地缓存缓存参数*/
+						 uni.setStorageSync('uid',uid);
+						   uni.setStorageSync('username',username);
+						   uni.setStorageSync('icon',icon);
+						   //把需要传递的参数设置为本地缓存
 						setTimeout(function() {
+	
 							/*navigateTo不能跳转到标签页面,switchTab可以*/
 							uni.switchTab({
-								url: '/pages/person/person?uid='+encodeURIComponent(JSON.stringify(uid))
+								url: '/pages/person/person'
 							});
 						}, 2000);
 						

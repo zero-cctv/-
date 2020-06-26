@@ -28,8 +28,9 @@
 		
 		{
 			"path": "pages/person/person",
-			"style": {"navigationBarTitleText": "个人"},
-			"enablePullDownRefresh": true
+			"style": {
+				"navigationBarTitleText": "个人",
+			"enablePullDownRefresh": true}
 		},
 		{
 			"path":"pages/item/item",

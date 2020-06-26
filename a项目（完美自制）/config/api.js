@@ -4,7 +4,8 @@ let api={
 	user:{
 		getCode:apiRoot+"Login/getCode",
 		register:apiRoot+"Login/register",
-		login:apiRoot+"Login/login"
+		login:apiRoot+"Login/login",
+		info:apiRoot+'Login/getUser'
 	}
 }
 export default api;

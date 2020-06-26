@@ -13,7 +13,7 @@
                 <switch :checked="isYasuo" @change="changeIndicatorDots" />
             </view>
         </view>
-        <view class='feedback-title'>
+<!--        <view class='feedback-title'>
             <text>QQ/邮箱</text>
         </view>
         <view class="feedback-body">
@@ -24,7 +24,7 @@
             <view class="feedback-star-view">
                 <text class="feedback-star" v-for="(value,key) in stars" :key="key" :class="key < sendDate.score ? 'active' : ''" @tap="chooseStar(value)"></text>
             </view>
-        </view>
+        </view> -->
         <button type="default" class="feedback-submit" @tap="send">提交</button>
 
     </view>
