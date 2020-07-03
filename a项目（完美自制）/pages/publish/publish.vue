@@ -3,49 +3,37 @@
         <view class="feedback-body" >
             <textarea placeholder="请输入..." style="border-bottom:1px solid   #F1F1F3;" v-model="sendDate.content" class="feedback-textare" />
         </view>
-        <choose :count="count"  :imgList="imgList"  @changes="fileChange"></choose>
-        <compress  ref="compress" :maxwh="maxwh" :quality="quality" > </compress>
-
+		<tmupload :isImg="isImg" :upload_auto="upload_auto" ref="tmupload"  v-if="refesh"></tmupload>
 
         <view class="swiper-list">
             <view class="uni-list-cell uni-list-cell-pd feedback-title">
-                <view class="uni-list-cell-db ">图片是否压缩</view>
-                <switch :checked="isYasuo" @change="changeIndicatorDots" />
+                <view class="uni-list-cell-db " v-if="isImg">图片</view>
+				<view class="uni-list-cell-db " v-else>视频</view>
+                <switch :checked="isImg" @change="changeIndicatorDots" />
             </view>
         </view>
-<!--        <view class='feedback-title'>
-            <text>QQ/邮箱</text>
-        </view>
-        <view class="feedback-body">
-            <input class="feedback-input" v-model="sendDate.contact" placeholder="(选填,方便我们联系你 )" />
-        </view>
-        <view class='feedback-title feedback-star-view'>
-            <text>插件评分</text>
-            <view class="feedback-star-view">
-                <text class="feedback-star" v-for="(value,key) in stars" :key="key" :class="key < sendDate.score ? 'active' : ''" @tap="chooseStar(value)"></text>
-            </view>
-        </view> -->
+
         <button type="default" class="feedback-submit" @tap="send">提交</button>
 
     </view>
 </template>
 
 <script>
-    import choose from "../../components/publish_Plus/image/choose.vue"
-    import compress from "../../components/publish_Plus/image/compress.vue"
+	import tmupload from "../../components/publish_Plus/tm-upload/tm-upload.vue"
     export default {
         name:'newsPublish',
         components:{
-        	choose,
-            compress
+			tmupload
         },
         data() {
             return {
-                isYasuo:true,
+				upload_auto:false,
+                isImg:true,
                 count:6,
                 maxwh:280,
                 quality:1, 
-                
+                uid:"",				
+				refesh:true,
                 msgContents: ["界面显示错乱", "启动缓慢，卡出翔了", "UI无法直视，丑哭了", "偶发性崩溃"],
                 stars: [1, 2, 3, 4, 5],
                 imgList: [],
@@ -56,15 +44,46 @@
                 }
             }
         },
-        onLoad() {
-
+        onShow() {
+			 uni.startPullDownRefresh({});
+			 // console.log(this.uid);
+			this.uid=this.$getStorage("uid").toString();
+			// console.log(this.uid);
         },
+		onPullDownRefresh() {
+		       //监听下拉刷新动作的执行方法，每次手动下拉刷新都会执行一次
+		       console.log('refresh');
+			   this.uid=this.$getStorage("uid").toString();
+			  
+		       setTimeout(function () {
+		           uni.stopPullDownRefresh();  //停止下拉刷新动画
+		       }, 500);
+		   },
         methods: {
+			getData(surl, str,p) {
+					uni.request({
+						url: surl,
+						method: 'GET',
+						data: p,
+						success: res => {
+							console.log('发送网址:' + surl);
+							this.data = res;
+							
+						},
+						fail: () => {
+							console.log('this is fail');
+						},
+						complete: () => {
+							this.requestafter(str);
+						}
+					});
+				
+			},
             compressImg(e){
               console.log(e)  
             },
             changeIndicatorDots(e){
-            this.isYasuo = !this.isYasuo
+            this.isImg = !this.isImg
             },
             fileChange(e){
               this.imgList=e;
@@ -91,62 +110,30 @@
                     urls: this.imgList
                 });
             },
-            send() { //发送提交
-                // console.log(JSON.stringify(this.sendDate));
-                
-                function requst(imgs,data){
-                    console.log(JSON.stringify(imgs));
-                                    uni.uploadFile({
-                        url: "https://service.dcloud.net.cn/feedback",
-                        files: imgs,
-                        formData: data,
-                        success: (res) => {
-                            if (res.statusCode === 200) {
-                                uni.showToast({
-                                    title: "反馈成功!"
-                                });
-                                this.imgList = [];
-                                this.sendDate = {
-                                    score: 0,
-                                    content: "",
-                                    contact: ""
-                                }
-                            }
-                        },
-                        fail: (res) => {
-                            // console.log(res)
-                        }
-                    });
-                }
-                
-                if(this.isYasuo){
-
-                    this.$refs.compress.yasuoImg(this.imgList).then(e=>{
-                        // console.log([this.imgList,e])
-                        let imgs = e.map((value, index) => {
-                            //var base64= value.tempFilePath
-                            return {
-                                name: "image" + index,
-                                uri:value.path,
-                                base64:value.tempFilePath
-                                
-                            }
-                        })
-                        // console.log(imgs)
-                        requst(imgs,this.sendDate)
-                    })
-                }else{
-                    
-                    let imgs = this.imgList.map((value, index) => {
-                        return {
-                            name: "image" + index,
-                            uri:value.path,
-                            base64:value.tempFilePath
-                        }
-                    })
-                    requst(imgs,this.sendDate)
-                }
-            }
+			/**动态传递参数给子组件,
+			1,父组件调用子组件方法;
+			2,在子组件里使用watch观察父组件传递过来的参数是否改变
+			
+			*/
+            send() { //发送提交    
+				// this.url="http://127.0.0.10:1080/Home/File/upload";
+					
+				this.requestafter("sendimg");
+            },
+			requestafter(str) {
+				if(str=="sendimg"){					
+					this.url=this.$api.user.upload;
+					this.upload_auto=true;				
+					this.$refs.tmupload.changurl(this.url);
+					this.$refs.tmupload.upload(this.upload_auto);
+					this.upload_auto=false;			
+					uni.showToast({
+						icon: 'none',
+						position: 'bottom',
+						title: '发送成功'
+					})
+				}
+			}
         }
     }
 </script>

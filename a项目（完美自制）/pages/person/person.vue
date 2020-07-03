@@ -134,7 +134,7 @@
 		getUser(){
 			console.log(this.uid);
 			if(this.uid){
-				var url=this.$api.user.getuser;
+				var url=this.$api.user.info;
 				var p={'uid':this.uid}
 				this.sendGurl(url,'getUser',p);
 			}

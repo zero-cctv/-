@@ -106,7 +106,7 @@ export default {
 				return false;
 			}
 			console.log('获取验证码');
-			// this.$refs.runCode.$emit('runCode'); //触发倒计时（一般用于请求成功验证码后调用）
+			this.$refs.runCode.$emit('runCode'); //触发倒计时（一般用于请求成功验证码后调用）
 			// uni.showToast({
 			//     icon: 'none',
 			// 	position: 'bottom',

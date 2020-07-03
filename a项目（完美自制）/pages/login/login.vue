@@ -94,6 +94,11 @@
 						
 					},
 					fail: () => {
+						uni.showToast({
+						    icon: 'none',
+							position: 'bottom',
+						    title: "bug"
+						});
 						console.log('this is fail');
 					},
 					complete: () => {

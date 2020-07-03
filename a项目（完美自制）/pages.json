@@ -53,6 +53,13 @@
 			}
 		},
 		{
+			"path":"pages/test/test",
+			"style":{
+				 "enablePullDownRefresh": true, 
+				"navigationBarTitleText":"测试"
+			}
+		},
+		{
 			"path":"pages/audio/audio",
 			"style":{
 				"navigationBarTitleText":"搜索音频"
@@ -98,8 +105,8 @@
 			"path":"pages/publish/publish",
 			"style":{
 				
-				"navigationBarTitleText":"上传"
-				
+				"navigationBarTitleText":"上传",
+				"enablePullDownRefresh": true
 			}
 		}
 	],
@@ -120,12 +127,18 @@
 			"selectedIconPath": "static/ico/images.png",
 			"text":"图片"//图标大小都不可以>40kb,不支持ico格式
 		}, 
+		// {
+		// 	"pagePath": "pages/music/music",
+		// 	"iconPath": "static/ico/music.png",
+		// 	"selectedIconPath": "static/ico/music.png",
+		// 	"text":"音乐"//图标大小都不可以>40kb,不支持ico格式
+		// }, 
 		{
-			"pagePath": "pages/music/music",
+			"pagePath": "pages/test/test",
 			"iconPath": "static/ico/music.png",
 			"selectedIconPath": "static/ico/music.png",
 			"text":"音乐"//图标大小都不可以>40kb,不支持ico格式
-		}, 
+		},
 		{
             "pagePath": "pages/publish/publish",
             "text": "上传",

@@ -1,5 +1,5 @@
 <template>
-	<view class="container999" @touchstart="refreshStart" @touchmove="refreshMove" @touchend="refreshEnd">
+	<view class="container999"  >
 		<!-- 刷新组件需搭配scroll-view使用，并在pages.json中添加 "disableScroll":true-->
 		<!-- <refresh ref="refresh" @isRefresh='isRefresh'></refresh> -->
 		<view class='nav'>
@@ -23,8 +23,25 @@
 				<view :id="'top'+listIndex" style="width: 100%;height: 180upx;">边距盒子</view>
 				<view class='content'>
 					<view class='card' v-for="(item,index) in listItem" v-if="listItem.length > 0" :key="index">
-						{{item}}
+						<!-- {{item[listname[listIndex][index]]}} -->
+						<view v-for="(items,index) in item[listname[listIndex][index]]" :key="index" :style="{width:50+'%',height:40+'%'}">
+							
+								<image :src="items.realurl" style=" height: 150rpx; width: 150rpx;"></image>
+								
+						</view>
+						
+						<!-- {{index}} -->
+						<!-- {{item[listname[listIndex][index]][0]['url']}} -->
+						<!-- {{listfile[listIndex][index]}} -->
+						
+						<view style="bottom: 0rpx;position:absolute">
+							uid: {{uid}}
+						<hr/>
+						{{listname[listIndex][index]}}</view>
+						
+						<!-- {{listIndex}} -->
 					</view>
+					<!-- <image></image> -->
 				</view>
 				<view class='noCard' v-if="listItem.length===0">
 					暂无信息
@@ -49,18 +66,95 @@ export default {
 		return {
 			currentPage:'index',
 			toView:'',//回到顶部id
-			tabTitle:['选择一','选择二','选择三','选择四'], //导航栏格式 --导航栏组件
+			tabTitle:['图片','视频','选择三','选择四'], //导航栏格式 --导航栏组件
 			currentTab: 0, //sweiper所在页
 			pages:[1,1,1,1], //第几个swiper的第几页
-			list: [[1, 2, 3, 4, 5, 6],['a', 'b', 'c', 'd', 'e', 'f'],[],['2233','4234','13144','324244']] //数据格式
+			uid:'',
+			list: [[1,2,3,4,5,6],['a', 'b', 'c', 'd', 'e', 'f'],[],['2233','4234','13144','324244']], //数据格式
+			listname:[[1,2,3,4,5,6],['a', 'b', 'c', 'd', 'e', 'f'],[],['2233','4234','13144','324244']],
+			listfile:[[1,2,3,4,5,6],['a', 'b', 'c', 'd', 'e', 'f'],[],['2233','4234','13144','324244']]
 		};
 	},
 	onLoad(e) {
-		
+
 	},
-	onShow() {},
+	
+	beforeMount(){
+		 uni.startPullDownRefresh({});
+	},
+	onShow() {
+	
+	},
 	onHide() {},
+	onPullDownRefresh() {
+	       //监听下拉刷新动作的执行方法，每次手动下拉刷新都会执行一次
+	       console.log('refresh');
+		   this.uid=this.$getStorage("uid").toString();
+		  var p={'uid':this.uid};
+		  var url=this.$api.user.imglist;
+		  this.getData(url,'userimg',p)
+	       setTimeout(function () {
+	           uni.stopPullDownRefresh();  //停止下拉刷新动画
+	       }, 500);
+	   },
 	methods: {
+		getData(surl, str,p) {
+				uni.request({
+					url: surl,
+					method: 'GET',
+					data: p,
+					success: res => {
+						console.log('发送网址:' + surl);
+						this.data = res;
+						
+					},
+					fail: () => {
+						console.log('this is fail');
+					},
+					complete: () => {
+						this.requestafter(str);
+					}
+				});
+			
+		},
+		requestafter(str) {
+				  console.log(this.data);
+				  console.log(this.list[0]);
+				  this.list=[[]];
+				  this.listname=[[]];
+				  this.listfile=[[]];
+				  if(str=='userimg'){
+					  if(this.data!=''){
+						  this.data=this.data.data;
+						  console.log(this.data);
+						
+						  this.list[this.currentTab]=this.data;
+						  for(var time in this.data){
+					 
+							  
+							  for(var temp in this.data[time]){
+								  this.listname[this.currentTab].push(temp)
+								  this.listfile[this.currentTab].push(this.data[time][temp])
+							  }
+							 }
+							  // for(var temp in this.data[time]){
+								 //  this.list[this.currentTab].push(temp);
+								 //  console.log(temp);
+								 //  console.log(this.data[time][temp]);
+							  // }
+						  // }
+						// for(var time in this.data.data){
+						// 	console.log(time);
+						// 	console.log(this.data.data[time]);
+						// 	for(var item in this.data.data[time]){
+						// 		console.log(this.data.data[time][item]);
+						// 	}
+						// }
+					   // console.log("url:=="+this.data.data.icourl)
+					  }
+				  }
+				  console.log(this.list[0]);
+				  },
 		toTop(){
 			this.toView = ''
 			setTimeout(()=>{
@@ -79,11 +173,13 @@ export default {
 					uni.hideLoading()
 					uni.showToast({
 						icon: 'none',
-						title: `请求第${that.currentTab + 1 }个导航栏的第${that.pages[that.currentTab]}页数据成功`
+						// title: `请求第${that.currentTab + 1 }个导航栏的第${that.pages[that.currentTab]}页数据成功`
+						title:'加载成功'
 					})
-					let newData = ['新数据1','新数据2','新数据3']
-					resolve(newData)
+					// let newData = ['新数据1','新数据2','新数据3','4546']
+					// resolve(newData)
 				}, 1000)
+				
 			})
 		},
 		// swiper 滑动
@@ -100,6 +196,7 @@ export default {
 		})
 			this.isRequest().then((res)=>{
 				let tempList = this.list
+				console.log(res)
 				tempList[this.currentTab] = tempList[this.currentTab].concat(res)
 				console.log(tempList)
 				this.list = tempList
@@ -107,29 +204,33 @@ export default {
 			})
 		}, 300),
 		// 刷新touch监听
-		refreshStart(e) {
-			this.$refs.refresh.refreshStart(e);
-		},
-		refreshMove(e){
-			this.$refs.refresh.refreshMove(e);
-		},
-		refreshEnd(e) {
-			this.$refs.refresh.refreshEnd(e);
-		},
-		isRefresh(){
-				setTimeout(() => {
-					uni.showToast({
-						icon: 'success',
-						title: '刷新成功'
-					})
-					this.$refs.refresh.endAfter() //刷新结束调用
-				}, 1000)
-		}
+		// refreshStart(e) {
+		// 	this.$refs.refresh.refreshStart(e);
+		// },
+		// refreshMove(e){
+		// 	this.$refs.refresh.refreshMove(e);
+		// },
+		// refreshEnd(e) {
+		// 	this.$refs.refresh.refreshEnd(e);
+		// },
+		// isRefresh(){
+		// 		setTimeout(() => {
+		// 			uni.showToast({
+		// 				icon: 'success',
+		// 				title: '刷新成功'
+		// 			})
+		// 			// this.$refs.refresh.endAfter() //刷新结束调用
+		// 		}, 1000)
+		// 		return "asaas"
+		// }
 	}
 };
 </script>
 
 <style lang="scss">
+	.flex{
+		display: flex;
+	}
 		.container999 {
 	  width: 100vw;
 	  font-size: 28upx;
